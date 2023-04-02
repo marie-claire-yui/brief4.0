@@ -1,43 +1,45 @@
 //carrousel
 
-document.body.onload=function(){
-    nbr=8;
-    p=0;
-    container=document.getElementById("container");
+document.body.onload=function(){ // au chargement de la page on appelle une fonction anonyme
+    nbr=8; // initialisation de variable ici pour 8 images
+ 
+    p=0; // initialisation de la variable p pour la position à 0 par défaut puis décaler à droite ou à gauche pour simuler l'effet du carroussel
+    container=document.getElementById("container");     //récupération des différents objets javascript
     g=document.getElementById("g");
     d=document.getElementById("d");
-    container.style.width=(250*nbr)+"px";
-    for(i=1;i<=nbr;i++){
-        div=document.createElement("div");
-        div.className="photo";
-        div.style.backgroundImage="url('img/im"+i+".jpg')";
-        container.appendChild(div);
+    container.style.width=(250*nbr)+"px";   // on modifie la largeur du container largeur de base de 250 px * par le  nombre d'images
+    
+    for(i=1;i<=nbr;i++){  //traitement itératif qui va créer les 5 images
+        div=document.createElement("div"); //création de divs
+        div.className="photo"; // application d'une classe à ces divs
+        div.style.backgroundImage="url('img/im"+i+".jpg')"; //spécification des images qui sont intégrés dans des divs préalablement créés dynamiquement
+        container.appendChild(div);   // ajout des divs au container principal
     }
     afficherMasquer();
 }
-g.onclick=function(){
-    if(p>-nbr+1)
-    p--;
-    container.style.transform="translate("+p*190+"px)";
+g.onclick=function(){ // click bouton gauche pourr déplacer le carroussel vers la gauche, application d'une position négative
+    if(p>-nbr+1) // condition pour limiter le déplacement du carroussel
+    p--; // je décremente p de 1 pour déplacement vers la gauche
+    container.style.transform="translate("+p*190+"px)"; // déplacement d'un élément sur le plan de la taille de l'image
     container.style.transition="all 0.5s ease";
     afficherMasquer();
 }
-d.onclick=function(){
-    if(p<0)
-    p++;
+d.onclick=function(){  // click bouton droit pour déplacer le carroussel vers la droite, application d'une position positive
+    if(p<0) // condition pour limiter le déplacement du carroussel
+    p++; // j'incrémente de 1 poru déplacement vers la droite
     container.style.transform="translate("+p*190+"px)";
     container.style.transition="all 0.5s ease";
     afficherMasquer();
 }
 function afficherMasquer(){
-    if (p==-nbr+1) 
+    if (p==-nbr+1) //si p=-4 on masque le bouton gauche
         g.style.visibility="hidden";
     else
-        g.style.visibility="visible";
+        g.style.visibility="visible"; // sinon on l'affiche
     if (p==0) 
-        d.style.visibility="hidden";
+        d.style.visibility="hidden"; // si p==0 on mesque le bouton droit
     else
-        d.style.visibility="visible";
+        d.style.visibility="visible"; // sinon on l'affiche
 }
 
 // pop up
@@ -104,9 +106,6 @@ let maCollection = [voyage1, voyage2, voyage3, voyage4, voyage5, voyage6, voyage
      paragrapheDiv.innerHTML = maCollection[key].description;
      h2Div.innerHTML = maCollection[key].destination;
     
- ;
-
-
     creationDiv.setAttribute("id", "up");
    ancreDiv.setAttribute("href","#");
    ancreDiv.innerHTML = "&times;";
