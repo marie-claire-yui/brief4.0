@@ -43,39 +43,47 @@ function afficherMasquer(){
 }
 
 // pop up
-let card = document.querySelectorAll(".card");
-let bouton = document.querySelectorAll(".card button");
-let ancre =[];
 
-for (let index = 0; index < card.length; index++) {
-  bouton[index].setAttribute("class","popupvoyage") ;
- bouton[index].setAttribute("id",index);
-     ancre[index] = document.createElement("a");
-     ancre[index].setAttribute("href","#up");
-     card[index].append(ancre[index]);
-    ancre[index].append(bouton[index]);
+// partie div card
+let card = document.querySelectorAll(".card"); // on sélectionne les éléments des div de class card
+let bouton = document.querySelectorAll(".card button"); // ainsi que leurs boutons
+let ancre =[]; // on créé une variable vide d'un tableau
+
+for (let index = 0; index < card.length; index++) {  // afin d'appliquer à chaque bouton on fait une boucle
+  bouton[index].setAttribute("class","popupvoyage") ; // on attribue la class popupvoyage à chaque bouton  
+ bouton[index].setAttribute("id",index); // on attribue aussi une id qui est l'index
+     ancre[index] = document.createElement("a"); // on créé une ancre
+     ancre[index].setAttribute("href","#up"); // auquel on attribue un href =# up, lien d'ancrage qui permettra de se diriger vers l'élément portant le id=up
+
+     card[index].append(ancre[index]); // on ajoute chaque ancre à chaque div card correspondant 
+    ancre[index].append(bouton[index]); // puis on ajoute le bouton à l'ancre
 }
 
 
 const btnpop = document.getElementsByClassName('popupvoyage');
 
-let creationDiv = document.createElement("div"); 
-creationDiv.setAttribute("class","overlay");
-let h2Div = document.createElement("h2");
-let imageDiv = document.createElement("img");
-let paragrapheDiv = document.createElement("p");
-let ancreDiv = document.createElement("a");
 
-creationDiv.append(h2Div,imageDiv,paragrapheDiv,ancreDiv);
-  document.body.append(creationDiv);
+// partie div modale up
+let creationDiv = document.createElement("div"); // on créé une div
+creationDiv.setAttribute("class","overlay"); // on lui attribue une classe + qui s'appelle overlay
+let h2Div = document.createElement("h2"); // on créé un H2
+let imageDiv = document.createElement("img"); // on crée une balise image
+let paragrapheDiv = document.createElement("p"); // on créé une balise paragraphe p
+let ancreDiv = document.createElement("a"); // on créé une ancre
+
+creationDiv.append(h2Div,imageDiv,paragrapheDiv,ancreDiv); // on ajoute les éléments créés dans la div créé
+  document.body.append(creationDiv); // et on rajoute cette div créé dans le body
 
 
+//partie stockage des données
+
+// fonction constructrice qui permet de faire un objet
   function Voyage(destination, description) {
     this.destination = destination,
     this.description = description
   };
 
-
+// 8 instances de l'objet
   let voyage1 = new Voyage("JDubai","Dubaï est une destination qui mêle la culture moderne à l'histoire, l'aventure, le divertissement et le shopping de première classe. Venez assister à une représentation à l'opéra de Dubaï, observez le cœur de la ville du haut de la tour Burj Khalifa et passez un après-midi au bord de la rivière de Dubaï à explorer les souks d'or, de tissus et d'épices. Si vous êtes à la recherche de sensations fortes, élevez-vous en montgolfière au-dessus des dunes, faites un tour à toute allure à l'IMG Worlds of Adventure ou sautez en parachute sur l'île de Palm Jumeirah.")
   let voyage2 = new Voyage("Bali","Avec ses décors de carte postale, Bali est un véritable paradis en Indonésie. Prenez le soleil sur un tapis de sable blanc et découvrez la faune tropicale en explorant les récifs coralliens de l'île ou l'épave colorée d'un navire de guerre datant de la Seconde Guerre mondiale. Enfoncez-vous dans les terres et découvrez une jungle luxuriante dans laquelle sont camouflés d'antiques temples de pierre habités par des singes facétieux. La « capitale artistique » de Ubud est le lieu idéal pour assister à une performance de danse traditionnelle, acheter un batik, visiter l'atelier d'un argentier, ou vivifier votre corps et votre esprit avec un cours de yoga.");
   let voyage3 = new Voyage("Londres","Du style audacieux de Shoreditch à la punk attitude de Camden en passant par l'élégance de Portobello Road, Londres rassemble de nombreux univers. Dans cette ville énergique, les jours se suivent sans se ressembler. Explorez les sites historiques ou royaux et des monuments qui vous font rêver, testez des restaurants étoilés, buvez une pinte dans un pub traditionnel ou perdez-vous dans le méandre des rues pavées pour vous laisser surprendre. À Londres, les possibilités sont infinies.");
@@ -93,22 +101,23 @@ creationDiv.append(h2Div,imageDiv,paragrapheDiv,ancreDiv);
 //     console.log(maCollection[key].destination); //syntaxe obligatoire lorsque la clé est dynamique
 // };
 
+// tableau contenant les 8 instances de l'objet
 let maCollection = [voyage1, voyage2, voyage3, voyage4, voyage5, voyage6, voyage7, voyage8];
 
 
+// div modale remplissage etc
 
-
-  for (let index = 0; index < btnpop.length; index++) {
-    btnpop[index].addEventListener('click', e => {
+  for (let index = 0; index < btnpop.length; index++) { // création d'une boucle
+    btnpop[index].addEventListener('click', e => { // on utilise un écouteur d'évènement qui au click déclenche la fonction callback
     let key = e.target.id; // récupère l'ID que l'on stocke dans key
  //   console.log(key);
-     imageDiv.setAttribute("src", `img/img${index+1}.jpg`);
-     paragrapheDiv.innerHTML = maCollection[key].description;
-     h2Div.innerHTML = maCollection[key].destination;
+     imageDiv.setAttribute("src", `img/img${index+1}.jpg`); // on attribue la source de l'image correspondante grace à l'index+1
+     paragrapheDiv.innerHTML = maCollection[key].description; // on accède aux variables du tableau qui stocke les isntances d'objet, ici la description
+     h2Div.innerHTML = maCollection[key].destination; // on accède aux variables du tableau qui stocke les isntances d'objet, ici la destination
     
-    creationDiv.setAttribute("id", "up");
-   ancreDiv.setAttribute("href","#");
-   ancreDiv.innerHTML = "&times;";
+    creationDiv.setAttribute("id", "up"); // on attribue l'id up qui permet à l'ancre de la div card de se diriger vers la div up
+   ancreDiv.setAttribute("href","#"); //erreur
+   ancreDiv.innerHTML = "&times;"; // permet de faire une croix sur la modale pour fermer la modale
     });
   }
 

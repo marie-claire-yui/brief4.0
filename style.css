@@ -238,9 +238,9 @@ footer p{
 }
 
 .overlay{
-    visibility:hidden;
+    visibility:hidden; 
 }
-
+/* permet de cacher la modale lorsqu'on a pas cliqué sur un bouton */
 .overlay:target{
     visibility:visible;
     /* width:50%;
@@ -252,6 +252,7 @@ footer p{
     left:25%;
     border: solid 5px #ee5057;
 }
+/* permet d'afficher la modale lorsqu'on a cliqué sur un bouton grace au mot clé target */
 
 .overlay a{
     text-decoration: none;
